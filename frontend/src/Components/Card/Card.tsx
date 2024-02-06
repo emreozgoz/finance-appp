@@ -1,11 +1,20 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const Card = (props: Props) => {
   return (
-    <div>Card</div>
-  )
-}
+    <div className="card">
+      <img
+        src="http://images.unsplash.com/photo-1612428978260-2b9c7df20150?ixl"
+        alt="Image"
+      />
+      <div className="details">
+        <h2>AAPL</h2>
+        <p>$110</p>
+      </div>
+    </div>
+  );
+};
 
-export default Card
+export default Card;
