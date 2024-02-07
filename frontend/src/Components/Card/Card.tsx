@@ -1,6 +1,10 @@
 import React from "react";
 
-type Props = {};
+interface Props {
+  companyName: string;
+  ticker: string;
+  price: number;
+}
 
 const Card = (props: Props) => {
   return (
@@ -10,9 +14,15 @@ const Card = (props: Props) => {
         alt="Image"
       />
       <div className="details">
-        <h2>AAPL</h2>
-        <p>$110</p>
+        <h2>
+          {props.companyName} ({props.ticker})
+        </h2>
+        <p>{props.price}</p>
       </div>
+      <p className="infon">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam,
+        dignissimos!
+      </p>
     </div>
   );
 };
