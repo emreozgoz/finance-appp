@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { CompanyProfile } from "../../company";
 import { getCompanyProfile } from "../../api";
 import SideBar from "../../Components/SideBar/SideBar";
-import CompanyDashboard from "../../Components/CompanyDasboard/CompanyDashboard";
+import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tile from "../../Components/Tile/Tile";
 
 interface Props {}
@@ -23,7 +23,7 @@ const CompanyPage = (props: Props) => {
       {company ? (
         <div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
           <SideBar />
-          <CompanyDashboard>
+          <CompanyDashboard ticker={ticker!}>
             <Tile title="Company Name" subTitle={company.companyName}></Tile>
           </CompanyDashboard>
         </div>
