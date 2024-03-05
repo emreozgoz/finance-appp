@@ -3,6 +3,7 @@ import { CompanyBalanceSheet, CompanyCashFlow } from "../../company";
 import { useOutletContext } from "react-router";
 import { getBalanceSheet } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 type Props = {};
 const config = [
@@ -35,7 +36,7 @@ const config = [
     render: (company: CompanyBalanceSheet) => company.otherCurrentLiabilities,
   },
   {
-    label: <div className="font-bold">Total Liabilites</div>,
+    label: <div className="font-bold">Total Liabilities</div>,
     render: (company: CompanyBalanceSheet) => company.totalLiabilities,
   },
   {
@@ -74,7 +75,7 @@ const BalanceSheet = (props: Props) => {
       {balanceSheet ? (
         <RatioList config={config} data={balanceSheet} />
       ) : (
-        <h1>No Data....</h1>
+        <Spinner />
       )}
     </>
   );
