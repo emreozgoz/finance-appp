@@ -23,7 +23,7 @@ const DesignPage = (props: Props) => {
         numquam sapiente id voluptates.
       </h2>
       <RatioList data={testIncomeStatementData} config ={tableConfig}/>
-      <Table />
+      <Table data={testIncomeStatementData} config={tableConfig} />
     </>
   );
 };
