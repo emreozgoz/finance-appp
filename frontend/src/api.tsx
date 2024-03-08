@@ -1,5 +1,13 @@
 import axios from "axios";
-import { CompanyBalanceSheet, CompanyCashFlow, CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch } from "./company";
+import {
+  CompanyBalanceSheet,
+  CompanyCashFlow,
+  CompanyCompData,
+  CompanyIncomeStatement,
+  CompanyKeyMetrics,
+  CompanyProfile,
+  CompanySearch,
+} from "./company";
 interface SearchResponse {
   data: CompanySearch[];
 }
@@ -30,7 +38,6 @@ export const getCompanyProfile = async (query: string) => {
     console.log("error message:", error.message);
   }
 };
-
 
 export const getKeyMetrics = async (query: string) => {
   try {
