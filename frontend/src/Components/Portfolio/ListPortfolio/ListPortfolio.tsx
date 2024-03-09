@@ -4,9 +4,14 @@ import CardPortfolio from "../CardPortfolio/CardPortfolio";
 interface Props {
   portfolioValues: string[];
   onPortfolioDelete: (r: SyntheticEvent) => void;
+  imageUrl: string;
 }
 
-const ListPortfolio = ({ portfolioValues, onPortfolioDelete }: Props) => {
+const ListPortfolio = ({
+  portfolioValues,
+  onPortfolioDelete,
+  imageUrl,
+}: Props) => {
   return (
     <section id="portfolio">
       <h2 className="mb-3 mt-3 text-3xl font-semibold text-center md:text-4xl">
@@ -20,6 +25,7 @@ const ListPortfolio = ({ portfolioValues, onPortfolioDelete }: Props) => {
                 <CardPortfolio
                   portfolioValue={portfolioValue}
                   onPortfolioDelete={onPortfolioDelete}
+                  imageUrl={imageUrl}
                 />
               );
             })

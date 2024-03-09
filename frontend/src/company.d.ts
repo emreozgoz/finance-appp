@@ -144,6 +144,7 @@ export interface CompanySearch {
     weightedAverageShsOutDil: number;
     link: string;
     finalLink: string;
+    imageUrl: string;
   }
   
   export interface CompanyBalanceSheet {

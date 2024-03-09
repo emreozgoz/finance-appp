@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { CompanyIncomeStatement } from "../../company";
 import { useOutletContext } from "react-router-dom";
-import { getIncomeStatement } from "../../api";
+import { getIncomeStatement, testEmre } from "../../api";
 import Table from "../Table/Table";
 import { config } from "dotenv";
 import Spinner from "../Spinner/Spinner";
-import { formatLargeMonetaryNumber, formatRatio } from "../../Helpers/NumberFormatting";
+import {
+  formatLargeMonetaryNumber,
+  formatRatio,
+} from "../../Helpers/NumberFormatting";
 
 type Props = {};
 const configs = [
@@ -72,15 +75,23 @@ const configs = [
     render: (company: CompanyIncomeStatement) =>
       formatRatio(company.incomeBeforeTaxRatio),
   },
+  {
+    label: "test",
+    render: (company: CompanyIncomeStatement) => company.imageUrl,
+  },
 ];
 const IncomeStatement = (props: Props) => {
   const ticker = useOutletContext<string>();
   const [incomeStatement, setIncomeStatement] =
     useState<CompanyIncomeStatement[]>();
+    const [test, setTest] =
+    useState();
   useEffect(() => {
     const getIncomeStatementFetch = async () => {
       const value = await getIncomeStatement(ticker!);
+      const x = await testEmre();
       setIncomeStatement(value?.data);
+      setTest(x)
     };
     getIncomeStatementFetch();
   }, []);
@@ -88,7 +99,7 @@ const IncomeStatement = (props: Props) => {
     <>
       {incomeStatement ? (
         <>
-          <Table config={configs} data={incomeStatement} />
+          <Table config={configs} data={incomeStatement}  />
         </>
       ) : (
         <Spinner />

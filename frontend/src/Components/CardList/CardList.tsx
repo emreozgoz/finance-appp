@@ -6,11 +6,13 @@ import { v4 as uuid4 } from "uuid";
 interface Props {
   searchResult: CompanySearch[];
   onPortfolioCreate: (e: SyntheticEvent) => void;
+  imageUrl: string;
 }
 
 const CardList: React.FC<Props> = ({
   searchResult,
   onPortfolioCreate,
+  imageUrl
 }: Props): JSX.Element => {
   return (
     <>
@@ -22,13 +24,14 @@ const CardList: React.FC<Props> = ({
               key={uuid4()}
               searchResult={result}
               onPortfolioCreate={onPortfolioCreate}
+              imageUrl={imageUrl}
             />
           );
         })
       ) : (
         <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
-        No results!
-      </p>
+          No results!
+        </p>
       )}
     </>
   );

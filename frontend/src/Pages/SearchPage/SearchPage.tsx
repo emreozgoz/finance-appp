@@ -4,7 +4,7 @@ import Search from "../../Components/Search/Search";
 import ListPortfolio from "../../Components/Portfolio/ListPortfolio/ListPortfolio";
 import CardList from "../../Components/CardList/CardList";
 import Navbar from "../../Components/Navbar/Navbar";
-import { searchCompanies } from "../../api";
+import { searchCompanies, testEmre } from "../../api";
 
 interface Props {}
 
@@ -12,6 +12,7 @@ const SearchPage = (props: Props) => {
   const [search, setSearch] = useState<string>("");
   const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
+  const [imageUrl, setImageUrl] = useState<string>();
   const [serverError, setServerError] = useState<string>("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +36,8 @@ const SearchPage = (props: Props) => {
   const onSearchSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const result = await searchCompanies(search);
+    const imageUrl = await testEmre();
+    setImageUrl(imageUrl);
     if (typeof result == "string") {
       setServerError(result);
     } else if (Array.isArray(result.data)) {
@@ -53,10 +56,12 @@ const SearchPage = (props: Props) => {
       <ListPortfolio
         portfolioValues={portfolioValues}
         onPortfolioDelete={onPortfolioDelete}
+        imageUrl={imageUrl!}
       />
       <CardList
         searchResult={searchResult}
         onPortfolioCreate={onPortfolioCreate}
+        imageUrl={imageUrl!}
       />
     </div>
   );

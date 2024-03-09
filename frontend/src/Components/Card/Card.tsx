@@ -7,24 +7,30 @@ interface Props {
   id: string;
   searchResult: CompanySearch;
   onPortfolioCreate: (e: SyntheticEvent) => void;
+  imageUrl: string;
 }
 
 const Card: React.FC<Props> = ({
   id,
   searchResult,
   onPortfolioCreate,
+  imageUrl,
 }: Props): JSX.Element => {
   return (
     <div
-      className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row"
+      className="inline-block flex-col w-full p-4 space-y-4 text-center rounded-lg shadow-lg md:w-auto ml-6 mb-4 bg-slate-500"
       key={id}
       id={id}
     >
-      <Link to={`/company/${searchResult.symbol}/company-profile`} className="font-bold text-center text-veryDarkViolet md:text-left">
+      <Link
+        to={`/company/${searchResult.symbol}/company-profile`}
+        className="font-bold text-center text-veryDarkViolet md:text-left text-sm"
+      >
         {searchResult.name} ({searchResult.symbol})
       </Link>
-      <p className="text-black">{searchResult.currency}</p>
-      <p className="font-bold text-black">
+      <img src={imageUrl} />
+      <p className="text-sm text-gray-600">{searchResult.currency}</p>
+      <p className="font-bold text-sm text-black">
         {searchResult.exchangeShortName} - {searchResult.stockExchange}
       </p>
       <AddPortfolio

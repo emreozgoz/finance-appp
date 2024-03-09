@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
   CompanyBalanceSheet,
   CompanyCashFlow,
@@ -8,6 +9,7 @@ import {
   CompanyProfile,
   CompanySearch,
 } from "./company";
+
 interface SearchResponse {
   data: CompanySearch[];
 }
@@ -78,6 +80,24 @@ export const getCashFlow = async (query: string) => {
       `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?limit=40&apikey=${process.env.REACT_APP_API_KEY}`
     );
     return data;
+  } catch (error: any) {
+    console.log("error message:", error.message);
+  }
+};
+
+export const testEmre = async () => {
+  try {
+    let config = {
+      headers: {
+        Authorization: "Bearer " + "3d24a5e7-65b2-4b7d-bd86-0ef5e35aa566",
+      },
+    };
+    const data = await axios.get(
+      `https://api.pokemontcg.io/v2/cards/xy1-1`,
+      config
+    );
+    var x = data.data;
+    return x.data.images.small;
   } catch (error: any) {
     console.log("error message:", error.message);
   }
