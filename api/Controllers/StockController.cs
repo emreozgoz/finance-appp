@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,11 @@ namespace api.Controllers
             _stockRepository = stockRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] QueryObject query )
         {
              if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var result = await _stockRepository.GetAllAsync();
+            var result = await _stockRepository.GetAllAsync(query);
             var stockDto = result.Select(x => x.ToStockDto());
             return Ok(result);
         }
