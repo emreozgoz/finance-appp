@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-   [Table("Portfolios")]
+    [Table("Portfolios")]
     public class Portfolio
     {
         public string AppUserId { get; set; }

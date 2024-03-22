@@ -66,6 +66,11 @@ namespace api.Repository
             return await _applicationDbContext.Stocks.Include(x => x.Comments).FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public async Task<Stock?> GetBySymbolAsync(string symbol)
+        {
+            return await _applicationDbContext.Stocks.FirstOrDefaultAsync(x => x.Symbol == symbol);
+        }
+
         public async Task<bool> StockExist(int id)
         {
             return await _applicationDbContext.Stocks.AnyAsync(x => x.Id == id);
