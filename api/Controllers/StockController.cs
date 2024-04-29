@@ -29,8 +29,8 @@ namespace api.Controllers
              if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             var result = await _stockRepository.GetAllAsync(query);
-            var stockDto = result.Select(x => x.ToStockDto());
-            return Ok(result);
+            var stockDto = result.Select(x => x.ToStockDto()).ToList();
+            return Ok(stockDto);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

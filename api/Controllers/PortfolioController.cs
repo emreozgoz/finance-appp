@@ -18,12 +18,13 @@ namespace api.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IStockRepository _stockRepository;
         private readonly IPortfolioRepository _portfolioRepository;
-
-        public PortfolioController(UserManager<AppUser> userManager, IStockRepository stockRepository, IPortfolioRepository portfolioRepository)
+        private readonly IFMPService _fmpService;
+        public PortfolioController(UserManager<AppUser> userManager, IStockRepository stockRepository, IPortfolioRepository portfolioRepository, IFMPService fMPService)
         {
             _stockRepository = stockRepository;
             _userManager = userManager;
             _portfolioRepository = portfolioRepository;
+            _fmpService = fMPService;
         }
         [HttpGet]
         [Authorize]
@@ -42,7 +43,18 @@ namespace api.Controllers
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
             var stock = await _stockRepository.GetBySymbolAsync(symbol);
-
+            if (stock == null)
+            {
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+                if (stock == null)
+                {
+                    return BadRequest("Stock does not exists");
+                }
+                else
+                {
+                    await _stockRepository.CreateAsync(stock);
+                }
+            }
             if (stock == null)
             {
                 return BadRequest("stock is not found");
@@ -65,7 +77,7 @@ namespace api.Controllers
 
         [HttpDelete]
         [Authorize]
-          public async Task<IActionResult> DeletePortfolio(string symbol)
+        public async Task<IActionResult> DeletePortfolio(string symbol)
         {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
