@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Comment;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using api.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,12 +28,13 @@ namespace api.Controllers
             _commentRepository = commentRepository;
             _userManager = userManager;
         }
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] CommentQueryObject queryObject)
         {
              if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var result = await _commentRepository.GetAllAsync();
+            var result = await _commentRepository.GetAllAsync(queryObject);
             var commentDto = result.Select(x => x.toCommentDto());
             return Ok(commentDto);
         }
